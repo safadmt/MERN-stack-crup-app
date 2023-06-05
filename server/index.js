@@ -5,14 +5,15 @@ import multer from 'multer';
 import mongoose from 'mongoose';
 import { dirname ,join} from 'path';
 import userRouter from './routes/user.js';
-
+const currentFilePath = fileURLToPath(import.meta.url)
+const __dirname = dirname(currentFilePath)
 const app = express();
 
 const db = "mongodb+srv://safadmt:QwJPwnC8sPH5WGVc@cluster0.9ekwixw.mongodb.net/crudApp?retryWrites=true&w=majority"
 
 app.use(cors(({origin: 'http://localhost:3000',credentials:true})));
 
-app.use('/images',express.static(join(dirname+'public/images')))
+app.use(express.static(path.join(__dirname + '/public')));
 mongoose.connect(db)
 .then(()=> console.log("Database connected"))
 .catch(err=> console.log(err));
